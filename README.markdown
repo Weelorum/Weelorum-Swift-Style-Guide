@@ -1,4 +1,8 @@
-# Mushket Mobile Swift Style Guide.
+# Mushket Mobile Swift Style Guide
+
+* [Objective-C](https://github.com/MushketMobile/Mushket-Mobile-Objective-C-Style-Guide)
+* [Kotlin](https://github.com/MushketMobile/Mushket-Mobile-Kotlin-Style-Guide)
+* [Java](https://github.com/MushketMobile/Mushket-Mobile-Java-Style-Guide)
 
 ## Table of Contents
 
@@ -100,7 +104,7 @@ For the above example using `UIGestureRecognizer`, 1 is unambiguous and preferre
 
 ### Class Prefixes
 
-Swift types are automatically namespaced by the module that contains them and you should not add a class prefix such as RW. If two names from different modules collide you can disambiguate by prefixing the type name with the module name. However, only specify the module name when there is possibility for confusion which should be rare.
+Swift types are automatically namespaced by the module that contains them and you should not add a class prefix such as MM. If two names from different modules collide you can disambiguate by prefixing the type name with the module name. However, only specify the module name when there is possibility for confusion which should be rare.
 
 ```swift
 import SomeModule
