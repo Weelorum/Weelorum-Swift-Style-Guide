@@ -55,47 +55,39 @@
 
 ## Correctness
 
-Strive to make your code compile without warnings. This rule informs many style decisions such as using `#selector` types instead of string literals.
+Aim to ensure your code compiles without any warnings. This principle influences several style choices, such as preferring `#selector` types over string literals to reduce the likelihood of runtime errors. Additionally, always validate your code for unused variables, deprecated APIs, and potential logical errors to enhance maintainability and reliability.
 
 ## Naming
 
-Descriptive and consistent naming makes software easier to read and understand. Use the Swift naming conventions described in the [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Some key takeaways include:
+Descriptive and consistent naming makes software easier to read and understand. Use the Swift naming conventions described in the [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/). Key principles include:
 
-- striving for clarity at the call site
-- prioritizing clarity over brevity
-- using camel case (not snake case)
-- using uppercase for types (and protocols), lowercase for everything else
-- including all needed words while omitting needless words
-- using names based on roles, not types
-- sometimes compensating for weak type information
-- striving for fluent usage
-- beginning factory methods with `make`
-- naming methods for their side effects
-  - verb methods follow the -ed, -ing rule for the non-mutating version
-  - noun methods follow the formX rule for the mutating version
-  - boolean types should read like assertions
-  - protocols that describe _what something is_ should read as nouns
-  - protocols that describe _a capability_ should end in _-able_ or _-ible_
-- using terms that don't surprise experts or confuse beginners
-- generally avoiding abbreviations
-- using precedent for names
-- preferring methods and properties to free functions
-- casing acronyms and initialisms uniformly up or down
-- giving the same base name to methods that share the same meaning
-- avoiding overloads on return type
-- choosing good parameter names that serve as documentation
-- labeling closure and tuple parameters
-- taking advantage of default parameters
+- Strive for clarity at the call site and prioritize it over brevity.
+- Use camel case for identifiers; capitalize types and protocols, while using lowercase for others.
+- Include all necessary words, omitting the needless ones.
+- Name based on roles, not types, and compensate for weak type information when needed.
+- Ensure fluent usage in method calls.
+- Use specific prefixes for factory methods, e.g., `make`
+- Name methods according to their side effects:
+  - Non-mutating verb methods should follow the -ed or -ing rule.
+  - Mutating noun methods should follow the formX rule.
+  - Boolean types should read like assertions.
+  - Protocols that describe _a capability_ should end in _-able_ or _-ible_
+- Avoid surprising experts or confusing beginners with terminology.
+- Generally, avoid abbreviations and use established precedents for naming.
+- Prefer methods and properties over free functions.
+- Ensure uniform casing for acronyms and initialisms.
+- Use the same base name for methods with shared meanings, avoiding overloads based solely on return types.
+- Choose descriptive parameter names that act as documentation, label closure and tuple parameters, and utilize default parameters effectively.
 
 ### Prose
 
 When referring to methods in prose, being unambiguous is critical. To refer to a method name, use the simplest form possible.
 
-1. Write the method name with no parameters.  **Example:** Next, you need to call the method `addTarget`.
-2. Write the method name with argument labels.  **Example:** Next, you need to call the method `addTarget(_:action:)`.
-3. Write the full method name with argument labels and types. **Example:** Next, you need to call the method `addTarget(_: Any?, action: Selector?)`.
+1. Method Name without Parameters: Use this format for clarity.  **Example:** Next, you need to call the method `addTarget`.
+2. Method Name with Argument Labels: Include argument labels for specificity..  **Example:** Next, you need to call the method `addTarget(_:action:)`.
+3. Full Method Name with Argument Labels and Types: Provide full detail if necessary. **Example:** Next, you need to call the method `addTarget(_: Any?, action: Selector?)`.
 
-For the above example using `UIGestureRecognizer`, 1 is unambiguous and preferred.
+For the example using UIGestureRecognizer, the first option is preferred for its unambiguity.
 
 **Pro Tip:** You can use Xcode's jump bar to lookup methods with argument labels.
 
@@ -104,7 +96,8 @@ For the above example using `UIGestureRecognizer`, 1 is unambiguous and preferre
 
 ### Class Prefixes
 
-Swift types are automatically namespaced by the module that contains them and you should not add a class prefix such as MM. If two names from different modules collide you can disambiguate by prefixing the type name with the module name. However, only specify the module name when there is possibility for confusion which should be rare.
+Class Prefixes
+Swift types are automatically namespaced by their containing module, so adding class prefixes (e.g., MM) is unnecessary. If name collisions occur between types from different modules, disambiguate by prefixing the type name with the module name, but only when confusion is likely, which should be rare.
 
 ```swift
 import SomeModule
@@ -168,7 +161,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
 
 ### Language
 
-Use US English spelling to match Apple's API.
+Use US English spelling throughout your codebase to maintain consistency with Apple's API and documentation. This practice enhances readability and ensures alignment with common conventions within the Swift programming community.
 
 **Preferred:**
 ```swift
@@ -191,6 +184,24 @@ Use extensions to organize your code into logical blocks of functionality. Each 
 //MARK: - Actions
 //MARK: - ProtocolName
 //MARK: - DelegateName
+```
+**Example:**
+```swift
+// MARK: - Initializers
+extension MyClass {
+    init() {
+        // Initialization code
+    }
+}
+```
+**Example:**
+```swift
+// MARK: - Public Methods
+extension MyClass {
+    func publicMethod() {
+        // Method implementation
+    }
+}
 ```
 
 ### Protocol Conformance
@@ -223,7 +234,7 @@ class MyViewController: UIViewController, UITableViewDataSource, UIScrollViewDel
 
 Since the compiler does not allow you to re-declare protocol conformance in a derived class, it is not always required to replicate the extension groups of the base class. This is especially true if the derived class is a terminal class and a small number of methods are being overridden. When to preserve the extension groups is left to the discretion of the author.
 
-For UIKit view controllers, consider grouping lifecycle, custom accessors, and IBAction in separate class extensions.
+For UIKit view controllers, consider grouping lifecycle, custom accessors, and view configuration in separate class extensions.
 
 ### Unused Code
 
@@ -277,10 +288,10 @@ else { // 1 line }
 if user.isHappy { 
  // 1 line 
  // 2 line
- } else {
+} else {
   // 1 line 
   // 2 line
-  }
+}
 
 ```
 
@@ -289,10 +300,10 @@ if user.isHappy {
 if user.isHappy
 {
   // Do something
-}
+ }
 else {
   // Do something else
-}
+ }
 ```
 
 * There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but having too many sections in a method often means you should refactor into several methods.
@@ -575,6 +586,15 @@ let hypotenuse = side * root2 // what is root2?
 ### Static Methods and Variable Type Properties
 
 Static methods and type properties work similarly to global functions and global variables and should be used sparingly. They are useful when functionality is scoped to a particular type or when Objective-C interoperability is required.
+
+**Example:**
+```swift
+class MathHelper {
+    static func add(_ a: Int, _ b: Int) -> Int {
+        return a + b
+    }
+}
+```
 
 ### Optionals
 
@@ -978,6 +998,9 @@ let message = "You cannot charge the flux " +
   "which costs 10 credits. You currently " +
   "have \(credits) credits available."
 ```
+## Concurrency
+
+When working with concurrency in Swift, it's important to adhere to best practices for using _async/await_ and _DispatchQueue_. Ensure that you handle thread management safely to prevent data races and maintain performance. Avoid blocking the main thread to keep the UI responsive. Always use appropriate synchronization mechanisms when accessing shared resources. Additionally, be mindful of cancellation and error handling in asynchronous tasks to enhance reliability and maintainability in your code.
 
 ## No Emoji
 
@@ -990,30 +1013,211 @@ Where an Xcode project is involved, the organization should be set to `Weelorum`
 ![Xcode Project settings](screens/project_settings.png)
 
 **Folder structure**
-All classes must to have self folder. For each project need to use internal pod `WeelorumKit`. For save your time also use ready templates to create folder structures with classes and methods.
-* Documentation
-* Headers
-* iOS
-   - API/
-   - Aplication/
-   - Services/
-   - Extensions/
-   - Helpers/
-     - Constants/
-     - Localization/
-   - Models/
-   - MVVM/
-   - Views/
-   - Resources/
-     - Entitlements/
-     - Fonts/
-     - Images/
-       - Assets.xcassets
-       - Images.xcassets
-     - LaunchScreen.storyboard
-     - Plists/
-       - Environments.plist
-       - Info.plist
+All classes must reside in their respective folders. To save time, utilize ready-made templates for creating folder structures with classes and methods.
+
+- ProjectName
+  - API/
+  - Application/
+  - Services/
+  - Extensions/
+  - Helpers/
+    - Constants/
+    - Localization/
+  - Models/
+  - Views/
+  - MVVM/
+    - ScreenName/
+      - Coordinator
+      - ViewModel
+      - View
+  - Resources/
+    - Entitlements/
+    - Fonts/
+    - Images/
+      - Assets.xcassets
+      - Images.xcassets
+      - Colors.xcassets
+    - LaunchScreen.storyboard
+    - Plists/
+      - Environments.plist
+      - Info.plist
+     
+## Architecture Patterns: MVVM + Coordinator
+MVVM (Model-View-ViewModel) is a design pattern that separates the user interface (View) from the business logic (ViewModel) and data (Model). This separation improves testability and maintainability by allowing independent development of each layer.
+
+Coordinator pattern complements MVVM by managing navigation and flow between view controllers. Instead of having each view controller handle its own navigation, the Coordinator takes on this responsibility, resulting in a cleaner and more modular structure.
+
+Benefits:
+Enhances testability of ViewModels by isolating UI logic.
+Improves code organization and reduces complexity by centralizing navigation.
+
+**Model**
+```swift
+struct User {
+    let name: String
+}
+```
+
+**ViewModel**
+```swift
+class UserViewModel {
+    private var user: User
+    
+    init(user: User) {
+        self.user = user
+    }
+    
+    var displayName: String {
+        return "User: \(user.name)"
+    }
+}
+```
+
+**ViewController**
+```swift
+class UserViewController: UIViewController {
+    var viewModel: UserViewModel!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = viewModel.displayName
+    }
+}
+```
+
+**Coordinator**
+```swift
+class AppCoordinator {
+    var navigationController: UINavigationController
+
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+
+    func showUser(user: User) {
+        let viewModel = UserViewModel(user: user)
+        let userVC = UserViewController()
+        userVC.viewModel = viewModel
+        navigationController.pushViewController(userVC, animated: true)
+    }
+}
+```
+
+## Reactive Programming with RxSwift
+
+Reactive programming is a programming paradigm focused on data streams and the propagation of change. It allows developers to build more responsive applications by managing asynchronous data flows and events efficiently.
+
+Observables: 
+
+Use Observable for data binding in ViewModels. This allows Views to react to changes without direct references.
+
+```swift
+let userName: BehaviorSubject<String> = BehaviorSubject(value: "Initial Name")
+```
+
+Subjects: 
+
+Utilize PublishSubject or BehaviorSubject for events and user inputs in ViewModels.
+
+```swift
+let userAction: PublishSubject<String> = PublishSubject()
+```
+
+DisposeBag:
+
+Always use a DisposeBag to manage memory and subscriptions.
+```swift
+private let disposeBag = DisposeBag()
+```
+
+## Using RxSwift in MVVM
+
+This structure allows for clear separation of concerns, making testing and maintenance easier. In this example, `PublishSubject` allows the `UserViewModel` to react to user actions, triggering an update to the `userName`. This showcases how RxSwift can create a responsive UI while maintaining a clean separation between the `View` and `ViewModel`.
+
+```swift
+import RxSwift
+
+class UserViewModel {
+    let userName: BehaviorSubject<String> = BehaviorSubject(value: "Initial Name")
+    let userAction: PublishSubject<String> = PublishSubject()
+    private let disposeBag = DisposeBag()
+
+    init() {
+        userAction
+            .subscribe(onNext: { [weak self] action in
+                self?.updateUserName(newName: action)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func updateUserName(newName: String) {
+        userName.onNext(newName)
+    }
+}
+
+class UserViewController: UIViewController {
+    var viewModel: UserViewModel!
+    let disposeBag = DisposeBag()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Observe changes to userName
+        viewModel.userName
+            .subscribe(onNext: { name in
+                print("User name updated: \(name)")
+            })
+            .disposed(by: disposeBag)
+
+        // Simulate user action
+        viewModel.userAction.onNext("New User Name")
+    }
+}
+```
+
+## Dependency Injection 
+Dependency Injection is a design pattern that promotes code modularity and testability by allowing the injection of dependencies rather than hardcoding them. When injecting dependencies, prefer initializer injection for mandatory dependencies and property injection for optional ones. Use protocols to define contracts for dependencies, making it easier to swap implementations for testing. This approach facilitates the creation of mock objects in unit tests, enhancing your code's testability.
+
+**Initializer Injection Example**:
+```swift
+protocol DataService {
+    func fetchData() -> [String]
+}
+
+class ApiDataService: DataService {
+    func fetchData() -> [String] {
+        // Fetch data from API
+    }
+}
+
+class ViewModel {
+    private let dataService: DataService
+
+    init(dataService: DataService) {
+        self.dataService = dataService
+    }
+}
+
+// Usage
+let apiService = ApiDataService()
+let viewModel = ViewModel(dataService: apiService)
+```
+
+**Property Injection Example**:
+```swift
+class ViewController: UIViewController {
+    var dataService: DataService?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        dataService?.fetchData()
+    }
+}
+
+// Usage
+let viewController = ViewController()
+viewController.dataService = ApiDataService()
+```
 
 ## Documentation
 Each project mast to have 2 files. README.md and CHANGELOG.md
@@ -1022,27 +1226,23 @@ Each project mast to have 2 files. README.md and CHANGELOG.md
 
 ### Compile and Dependencies
 
-We use [CocoaPods](https://www.cocoapods.org) to manage dependencies of the project. 
+We emphasize the use of [Swift Package Manager (SPM)](https://developer.apple.com/documentation/xcode/swift-packages) for managing project dependencies, as it integrates seamlessly with Xcode.
 
-To install dependencies, run
+If you need to install dependencies using SPM, add the required packages in the Xcode project settings.
+
+For [CocoaPods](https://www.cocoapods.org) users: To install CocoaPods dependencies, execute the following command in your terminal:
+
 ```
 pod install
 ```
 
-## Distribution
-
-We use [Bitrise](https://www.bitrise.io) to distribute builds to iTunesConnect.
-
-You can distribute application with `Release` and `Staging` environment, to do it simply run from admin panel.
-
-
 ## Localization
 
-We use [POEditor.](https://poeditor.com). It's localization management platform that's easy to use!
+We utilize R.swift for managing localization.
 
-Make sure that you have folders for each language with `Localizable.strings` files in `Resources/Localization` folder and encoding set to `UTF-16LE` in the XCode projet. After that in order to update all existings localizable strings simply from admin panel of POEditor.
+Ensure that you have folders for each language containing `Localizable.strings` files within the `Resources/Localization` folder, and set the encoding to UTF-16LE in the Xcode project. To update existing localizable strings, simply use the R.swift management tool.
 
-For right now there is no support for localizing from xibs directly, because we dont want to include meaningless strings into translation (like "Label" "Text" and etc.). 
+Currently, we do not support localizing from XIBs directly, as we aim to avoid including meaningless strings in translations (like "Label," "Text," etc.) 
 
 ## About Weelorum
 
