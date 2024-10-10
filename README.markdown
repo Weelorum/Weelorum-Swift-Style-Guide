@@ -1,8 +1,7 @@
 # Weelorum Swift Style Guide
 
-* [Objective-C](https://github.com/Weelorum/Weelorum-Objective-C-Style-Guide)
 * [Kotlin](https://github.com/Weelorum/Weelorum-Kotlin-Style-Guide)
-* [Java](https://github.com/Weelorum/Weelorum-Java-Style-Guide)
+* [Flutter](https://github.com/Weelorum/Weelorum-Flutter-Style-Guide)
 
 ## Table of Contents
 
