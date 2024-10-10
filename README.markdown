@@ -49,7 +49,7 @@
 * [Compile and Dependencies](#compile-and-dependencies)
 * [Distribution](#distribution)
 * [Localization](#localization)
-* [AboutWeelorum](#about-weelorum)
+* [About Weelorum](#about-weelorum)
 
 
 ## Correctness
