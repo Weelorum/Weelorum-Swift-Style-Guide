@@ -1252,5 +1252,5 @@ NEWPROJECT are maintained by Weelorum. We specialize in providing all-in-one sol
 Find out more [here][weelorum] and don't hesitate to [contact us][contact]!
 
 [weelorum]: https://www.weelorum.com
-[contact]: https://www.weelorum.com
+[contact]: https://weelorum.com/contact/
 
